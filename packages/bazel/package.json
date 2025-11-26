@@ -39,7 +39,7 @@
     "@bazel/ibazel": "^0.27.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^20.0.0",
+    "@angular-devkit/core": "^21.0.0",
     "cpy-cli": "^5.0.0",
     "quicktype": "^15.0.260",
     "rimraf": "^5.0.0",
