@@ -1,10 +1,10 @@
 import * as path from 'node:path';
 import * as url from 'node:url';
-import type { logging } from '@angular-devkit/core';
+import { LoggingApi } from './ng-20-21-types';
 
 const _tsNodeRegister = (() => {
   let lastTsConfig: string | undefined;
-  return (tsConfig: string, logger: logging.LoggerApi) => {
+  return (tsConfig: string, logger: LoggingApi) => {
     // Check if the function was previously called with the same tsconfig
     if (lastTsConfig && lastTsConfig !== tsConfig) {
       logger.warn(`Trying to register ts-node again with a different tsconfig - skipping the registration.
@@ -46,7 +46,7 @@ const _tsNodeRegister = (() => {
  * @param file: file name or file directory are allowed
  * @todo tsNodeRegistration: require ts-node if file extension is TypeScript
  */
-function tsNodeRegister(file: string = '', tsConfig: string, logger: logging.LoggerApi) {
+function tsNodeRegister(file: string = '', tsConfig: string, logger: LoggingApi) {
   if (file?.endsWith('.ts')) {
     // Register TS compiler lazily
     _tsNodeRegister(tsConfig, logger);
@@ -75,7 +75,7 @@ function loadEsmModule<T>(modulePath: string | URL): Promise<T> {
 export async function loadModule<T>(
   modulePath: string,
   tsConfig: string,
-  logger: logging.LoggerApi
+  logger: LoggingApi
 ): Promise<T> {
   tsNodeRegister(modulePath, tsConfig, logger);
 

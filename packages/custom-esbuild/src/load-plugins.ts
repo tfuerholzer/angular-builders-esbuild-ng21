@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 import type { Plugin } from 'esbuild';
-import type { logging } from '@angular-devkit/core';
 import { loadModule } from '@angular-builders/common';
 import {
   CustomEsbuildApplicationSchema,
@@ -10,11 +9,13 @@ import {
 } from './custom-esbuild-schema';
 import { Target } from '@angular-devkit/architect';
 
+type LoadModuleLogger = Parameters<typeof loadModule>['2']
+
 export async function loadPlugins(
   pluginConfig: PluginConfig[] | undefined,
   workspaceRoot: string,
   tsConfig: string,
-  logger: logging.LoggerApi,
+  logger: LoadModuleLogger,
   builderOptions: CustomEsbuildApplicationSchema | CustomEsbuildDevServerSchema | CustomEsbuildUnitTestSchema,
   target: Target
 ): Promise<Plugin[]> {
@@ -25,7 +26,7 @@ export async function loadPlugins(
           | Plugin
           | Plugin[]
           | ((
-              options: CustomEsbuildApplicationSchema | CustomEsbuildDevServerSchema,
+              options: CustomEsbuildApplicationSchema | CustomEsbuildDevServerSchema | CustomEsbuildUnitTestSchema,
               target: Target
             ) => Plugin | Plugin[])
         >(path.join(workspaceRoot, pluginConfig), tsConfig, logger);

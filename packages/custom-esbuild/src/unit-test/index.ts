@@ -3,7 +3,6 @@ import { BuilderContext, createBuilder, targetFromTargetString } from '@angular-
 import { executeUnitTestBuilder, UnitTestBuilderOptions } from '@angular/build';
 import { getSystemPath, json, normalize } from '@angular-devkit/core';
 import { from, switchMap } from 'rxjs';
-
 import { loadPlugins } from '../load-plugins';
 import {
   CustomEsbuildApplicationSchema,
